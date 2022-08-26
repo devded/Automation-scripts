@@ -12,8 +12,9 @@ parser.add_argument(
     type=str,
     help='The file path of target video. '
     + 'ex. /home/user/example.mp4.\nDefault value is "demo.mp4"',
-    default=base_dir + '/demo.mp4'
+    default=f'{base_dir}/demo.mp4',
 )
+
 parser.add_argument(
     '-n',
     type=str,
@@ -37,10 +38,10 @@ while True:
 
 origin_file = (lambda x: x.split('/')[-1])(audio_path)
 
-if args.n:
-    new_file = args.n
-else:
-    new_file = f'{origin_file.split(".")[0]}_noAudio.{origin_file.split(".")[1]}'
+new_file = (
+    args.n
+    or f'{origin_file.split(".")[0]}_noAudio.{origin_file.split(".")[1]}'
+)
 
 
 def remove_audio(audio):

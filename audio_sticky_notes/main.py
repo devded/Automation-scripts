@@ -15,23 +15,20 @@ def maker(wins):
 
 def maintain():
     global numofwindows
-    storage = open("assets\\storage", "w")
-    storage.write(str(numofwindows))
-    storage.close()
+    with open("assets\\storage", "w") as storage:
+        storage.write(str(numofwindows))
 
 
 def reset():
-    storage = open("assets\\storage", "w")
-    storage.write(str(0))
-    storage.close()
+    with open("assets\\storage", "w") as storage:
+        storage.write(str(0))
 
 
 try:
-    getwin = open("assets\\storage", "r")
-    win = getwin.readline()
-    numofwindows = int(win)
-    getwin.close()
-    for i in range(0, numofwindows):
+    with open("assets\\storage", "r") as getwin:
+        win = getwin.readline()
+        numofwindows = int(win)
+    for i in range(numofwindows):
         subprocess.Popen(["python.exe", "note.py", str(i)], shell=True)
 except FileNotFoundError:
     numofwindows = 0

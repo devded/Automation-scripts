@@ -1,20 +1,20 @@
 def is_number_valid(row, col, num):
     # function to find if the number is valid or not in the respective space
     global grid   # making grid as global variable
-    for i in range(0, 9):
+    for i in range(9):
         # for loop to find if the number is present in the row or not
         if grid[row][i] == num:
             return False
-    for i in range(0, 9):
+    for i in range(9):
         # for loop to find if the number is present in the column or not
         if grid[i][col] == num:
             return False
     # makes the variables to consider the 3x3 square in the puzzle
     col_subset = (col // 3) * 3
     row_subset = (row // 3) * 3
-    for i in range(0, 3):
+    for i in range(3):
         # for loop to find if the number is present in square
-        for j in range(0, 3):
+        for j in range(3):
             if grid[row_subset + i][col_subset + j] == num:
                 return False
     return True   # if not preent in the all the possibilities returns True
@@ -33,7 +33,7 @@ def print_board():  # function to print the puzzle after solving
             if j == 8:
                 print(grid[i][j])
             else:
-                print(str(grid[i][j]) + " ", end="")
+                print(f"{str(grid[i][j])} ", end="")
 
 
 def solve_sudoku():

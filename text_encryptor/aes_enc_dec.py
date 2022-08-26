@@ -60,13 +60,13 @@ if __name__ == "__main__":
         if(len(type) != 1):
             type = "S"
     GetKey()
-    if(type == "e"):
+    if (type == "e"):
         print("NOTE: If you forget this password, you will not be able'\
         ' to decrypt text correctly. So, DO NOT FORGET PASSWORD!!")
         message = input("Enter message in single line: ")
         ciphertext = AES_Encryption(message)
-        print("Encrypted Message: %s" % ciphertext)
+        print(f"Encrypted Message: {ciphertext}")
     else:
         encText = input("Enter encrypted message: ")
         message = AES_Decryption(encText)
-        print("Original Message: %s" % message)
+        print(f"Original Message: {message}")

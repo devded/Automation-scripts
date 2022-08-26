@@ -18,7 +18,7 @@ choice = input('choice? ')
 
 if choice == '1':
 
-    for num in range(0, pages):
+    for num in range(pages):
         page = pdfReader.getPage(num)
         text = page.extractText()
         whole_text += text
