@@ -8,8 +8,9 @@ parser.add_argument(
     type=str,
     help='The file path of target image. '
     + 'ex. /home/user/example.jpeg.\nDefault value is "demo.jpeg"',
-    default=os.path.dirname(__file__) + '/demo.jpeg'
+    default=f'{os.path.dirname(__file__)}/demo.jpeg',
 )
+
 parser.add_argument(
     '-rw',
     type=int,
@@ -44,14 +45,13 @@ else:
 # and output current image ratio
 while True:
     img = cv2.imread(img_path)
-    if img is None:
-        print(
-            'Directory or file is not valid,'
-            + ' please enter a valid file directory ...')
-        img_path = str(input('Enter the image path again (absolute path): '))
-    else:
+    if img is not None:
         break
 
+    print(
+        'Directory or file is not valid,'
+        + ' please enter a valid file directory ...')
+    img_path = str(input('Enter the image path again (absolute path): '))
 original_width = img.shape[0]
 original_height = img.shape[1]
 print(f'Current image ratio is {original_width} x {original_height}')

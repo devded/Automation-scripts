@@ -148,14 +148,11 @@ class Ui_MainWindow(object):
 
     def search_books(self):
         global books
-        results = []
         searchtext = self.lineEdit.text()
         field = [self.radioButton_1.isChecked(), self.radioButton_2.isChecked(
         ), self.radioButton_3.isChecked(), self.radioButton_4.isChecked()]
         ind = field.index(True)
-        for i in books:
-            if searchtext in i[ind]:
-                results.append(i)
+        results = [i for i in books if searchtext in i[ind]]
         self.list_1.clear()
         for item in results:
             newitem = QtWidgets.QListWidgetItem(
@@ -175,24 +172,22 @@ class Ui_MainWindow(object):
         ui.setupUi(Dialog2, path=res[0], name=name, add=1)
         Dialog2.show()
         s = Dialog2.exec_()
-        if s == 1:
-            if ui.data['path'] not in [i[1] for i in books]:
-                books.append([ui.data['name'], ui.data['path'],
-                              ui.data['tags'], ui.data['notes']])
-                item = books[-1]
-                newitem = QtWidgets.QListWidgetItem(
-                    f"Name: {item[0]}\nPath: {item[1]}\nTags: {', '.join(item[2])}\nNotes: {item[3]}\n")
-                font = QtGui.QFont('Times', 12)
-                font.setBold(True)
-                font.setWeight(50)
-                newitem.setFont(font)
-                self.list_1.addItem(newitem)
-                add_book(conn, Book(ui.data['name'], ui.data['path'], ', '.join(
-                    item[2]), ui.data['notes']))
+        if s == 1 and ui.data['path'] not in [i[1] for i in books]:
+            books.append([ui.data['name'], ui.data['path'],
+                          ui.data['tags'], ui.data['notes']])
+            item = books[-1]
+            newitem = QtWidgets.QListWidgetItem(
+                f"Name: {item[0]}\nPath: {item[1]}\nTags: {', '.join(item[2])}\nNotes: {item[3]}\n")
+            font = QtGui.QFont('Times', 12)
+            font.setBold(True)
+            font.setWeight(50)
+            newitem.setFont(font)
+            self.list_1.addItem(newitem)
+            add_book(conn, Book(ui.data['name'], ui.data['path'], ', '.join(
+                item[2]), ui.data['notes']))
 
     def open_dialog_box(self):
-        filename = QtWidgets.QFileDialog.getOpenFileName()
-        return filename
+        return QtWidgets.QFileDialog.getOpenFileName()
         # print(filename)
 
     def open_properties(self, item):
@@ -217,7 +212,6 @@ class Ui_MainWindow(object):
                         break
                 delete_book(conn, books[ind][1])
                 del books[ind]
-                self.show_all()
             else:
                 # Ok is clicked
                 for index, i in enumerate(books):
@@ -232,7 +226,8 @@ class Ui_MainWindow(object):
                 edit_book(conn, 'tags', ', '.join(
                     books[index][2]), books[index][1])
                 edit_book(conn, 'notes', books[index][3], books[index][1])
-                self.show_all()
+
+            self.show_all()
 
 
 if __name__ == "__main__":

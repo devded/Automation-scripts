@@ -6,6 +6,7 @@ Created on Fri Apr 10 10:46:47 2020
 @author: edoardottt
 """
 
+
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -15,7 +16,7 @@ r = requests.get(url)
 s = BeautifulSoup(r.text, "html.parser")
 data = s.find_all("div", class_="maincounter-number")
 
-for x in range(0, 5):
+for x in range(5):
     b = "Fetching data" + "." * x
     print(b, end="\r")
     time.sleep(0.5)

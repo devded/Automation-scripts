@@ -85,7 +85,7 @@ async def parse_thepiratebay(
 ) -> None:
     page = 1
 
-    while (True):
+    while True:
         try:
             html = await send_query(urlList['thepiratebay'].format_map({
                 'query': quote(args.query),
@@ -122,9 +122,11 @@ async def parse_thepiratebay(
             seeder = int(columns[2].text.strip())
             leecher = int(columns[3].text.strip())
 
-            if len(args.categories) > 0:
-                if category.casefold() not in args.categories:
-                    continue
+            if (
+                len(args.categories) > 0
+                and category.casefold() not in args.categories
+            ):
+                continue
 
             if seeder < args.seeder_limit:
                 continue
@@ -171,7 +173,7 @@ async def parse_1337x(
 
     page = 1
 
-    while (True):
+    while True:
         try:
             html = await send_query(urlList['1337x'].format_map({
                 'query': quote(args.query),
@@ -203,9 +205,11 @@ async def parse_1337x(
             seeder = int(columns[1].text.strip())
             leecher = int(columns[2].text.strip())
 
-            if len(args.categories) > 0:
-                if category.casefold() not in args.categories:
-                    continue
+            if (
+                len(args.categories) > 0
+                and category.casefold() not in args.categories
+            ):
+                continue
 
             if seeder < args.seeder_limit:
                 continue
@@ -238,7 +242,7 @@ async def parse_torlock(args, session: ClientSession) -> None:
 
     page = 1
 
-    while (True):
+    while True:
         try:
             html = await send_query(urlList['torlock'].format_map({
                 'query': quote(args.query),
@@ -270,9 +274,11 @@ async def parse_torlock(args, session: ClientSession) -> None:
             seeder = int(columns[3].text.strip())
             leecher = int(columns[4].text.strip())
 
-            if len(args.categories) > 0:
-                if category.casefold() not in args.categories:
-                    continue
+            if (
+                len(args.categories) > 0
+                and category.casefold() not in args.categories
+            ):
+                continue
 
             if seeder < args.seeder_limit:
                 continue

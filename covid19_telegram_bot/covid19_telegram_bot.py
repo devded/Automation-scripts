@@ -25,12 +25,13 @@ covid = Covid(source="worldometers")
 India_cases = covid.get_status_by_country_name("india")
 stat = (
     "\n".join(
-        "{} : \t{}".format(k, v)
+        f"{k} : \t{v}"
         for k, v in India_cases.items()
         if not k.startswith(("population", "total"))
     )
     + "\n#IndiaFightsCorona"
 )
+
 
 previous_data.append(stat)
 while 1:
@@ -38,12 +39,13 @@ while 1:
     India_cases = covid.get_status_by_country_name("india")
     stat = (
         "\n".join(
-            "{} : \t{}".format(k, v)
+            f"{k} : \t{v}"
             for k, v in India_cases.items()
             if not k.startswith(("population", "total"))
         )
         + "\n#IndiaFightsCorona"
     )
+
     if stat in previous_data:
         print("Duplicate")
     else:

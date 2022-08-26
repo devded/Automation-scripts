@@ -44,8 +44,7 @@ def draw_circle(event, x, y, flags, param):
         annotation_vals.append(txt)
 
         # Print the coordinates and the annotation to the console
-        print("x = " + str(x) + "  y = " + str(y)
-              + "  Annotation = " + txt + "\n")
+        print((((f"x = {str(x)}  y = {str(y)}" + "  Annotation = ") + txt) + "\n"))
 
         # Set the position of the text part of the annotation
         text_x_pos = None

@@ -22,11 +22,14 @@ def readPoints(path):
 def applyAffineTransform(src, srcTri, dstTri, size):
     # Given a pair of triangles, find the affine transform.
     warpMat = cv2.getAffineTransform(np.float32(srcTri), np.float32(dstTri))
-    # Apply the Affine Transform just found to the src image
-    dst = cv2.warpAffine(src, warpMat, (size[0], size[1]), None,
-                         flags=cv2.INTER_LINEAR,
-                         borderMode=cv2.BORDER_REFLECT_101)
-    return dst
+    return cv2.warpAffine(
+        src,
+        warpMat,
+        (size[0], size[1]),
+        None,
+        flags=cv2.INTER_LINEAR,
+        borderMode=cv2.BORDER_REFLECT_101,
+    )
 
 
 # Warps and alpha blends triangular regions from img1 and img2 to img
@@ -40,7 +43,7 @@ def morphTriangle(img1, img2, img, t1, t2, t, alpha):
     t1Rect = []
     t2Rect = []
     tRect = []
-    for i in range(0, 3):
+    for i in range(3):
         tRect.append(((t[i][0] - r[0]), (t[i][1] - r[1])))
         t1Rect.append(((t1[i][0] - r1[0]), (t1[i][1] - r1[1])))
         t2Rect.append(((t2[i][0] - r2[0]), (t2[i][1] - r2[1])))
@@ -72,11 +75,11 @@ if __name__ == '__main__':
     img1 = np.float32(img1)
     img2 = np.float32(img2)
     # Read array of corresponding points
-    points1 = readPoints(filename1 + '.txt')
-    points2 = readPoints(filename2 + '.txt')
+    points1 = readPoints(f'{filename1}.txt')
+    points2 = readPoints(f'{filename2}.txt')
     points = []
     # Compute weighted average point coordinates
-    for i in range(0, len(points1)):
+    for i in range(len(points1)):
         x = (1 - alpha) * points1[i][0] + alpha * points2[i][0]
         y = (1 - alpha) * points1[i][1] + alpha * points2[i][1]
         points.append((x, y))
